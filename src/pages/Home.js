@@ -80,7 +80,7 @@ function Home() {
 
 const fetchdata = async () => {
     try {
-        let response = await axios.get("http://localhost:8000/api/v1/algen/list")
+        let response = await axios.get("https://be-react-gmaps.herokuapp.com/api/v1/algen/list")
         console.log("isi response", response.data.data)
         let valueRes = response.data.data[0]
         if(valueRes.startingPoint === true){
@@ -178,7 +178,7 @@ const fetchdata = async () => {
   async function save(e){
     e.preventDefault();
     try {
-      let response = await axios.post(`http://localhost:8000/api/v1/algen/create`, {
+      let response = await axios.post(`https://be-react-gmaps.herokuapp.com/api/v1/algen/create`, {
         name: name,
         address: address,
         lat: coordinates.lat,
@@ -196,7 +196,7 @@ const fetchdata = async () => {
   
   async function del(id){
     try {
-      let response = await axios.delete(`http://localhost:8000/api/v1/algen/delete/${id}`)
+      let response = await axios.delete(`https://be-react-gmaps.herokuapp.com/api/v1/algen/delete/${id}`)
       if(response){
         window.location.reload();
       }
