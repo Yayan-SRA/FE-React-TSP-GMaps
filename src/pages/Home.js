@@ -1133,10 +1133,10 @@ function newPopulation(pop){
                               <td>{index+1}</td>
                               <td className={styles.rute}>{data.name}</td>  
                               <td className={styles.rute}>{data.address}</td>  
-                              <td>{data.lat}</td>  
-                              <td>{data.lng}</td>
+                              <td className={styles.rute}>{data.lat}</td>  
+                              <td className={styles.rute}>{data.lng}</td>
                               <td>
-                                {data.startingPoint == true ? "Yes" : "No"}</td>
+                                {data.startingPoint === true ? "Yes" : "No"}</td>
                               <td>
                               {/* <Button variant='warning' color='white'  onClick={() =>upd()}>Update</Button>{' '} */}
                               <Button variant='danger' color='white'  onClick={() => del(data.id)}>Delete</Button>
