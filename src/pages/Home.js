@@ -1131,8 +1131,8 @@ function newPopulation(pop){
                             {placeData.map((data,index) => (
                             <tr key={index}>
                               <td>{index+1}</td>
-                              <td>{data.name}</td>  
-                              <td>{data.address}</td>  
+                              <td className={styles.rute}>{data.name}</td>  
+                              <td className={styles.rute}>{data.address}</td>  
                               <td>{data.lat}</td>  
                               <td>{data.lng}</td>
                               <td>
