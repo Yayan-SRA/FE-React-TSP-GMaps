@@ -1,0 +1,42 @@
+.Home {
+    /* background-color: blueviolet; */
+    text-align: center;
+}
+
+.Test {
+    width: 70%;
+    padding: 10px;
+    background-color: rgb(0, 0, 0);
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* .btn {
+    margin-left: 15%;
+} */
+
+.add {
+    background-color: rgb(210, 211, 212);
+    margin-top: 10px;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.form {
+    width: 100%;
+
+}
+
+PlacesAutocomplete {
+    width: 100%;
+}
+
+.search, .rute {
+    text-align: left;
+}
+
+.tabel {
+    width: 80%;
+    margin: auto;
+}
