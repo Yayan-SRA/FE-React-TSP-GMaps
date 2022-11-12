@@ -1176,9 +1176,9 @@ function newPopulation(pop){
                                     <Button variant='danger'  onClick={() =>setBtnShowDistance(0)}>Close Show Distance</Button>
                                   }{" "}
                                   {btnStartCalculate === 0 ?
-                                    <Button variant='primary'  onClick={() =>setBtnStartCalculate(1)}>Start Calculate</Button>
+                                    <Button variant='primary'  onClick={() =>setBtnStartCalculate(1)}>Start</Button>
                                   :
-                                    <Button variant='danger'  onClick={() =>setBtnStartCalculate(0)}>Close Start Calculate</Button>
+                                    <Button variant='danger'  onClick={() =>setBtnStartCalculate(0)}>Close Start</Button>
                                   }
                                   
                                 </div>  
@@ -1316,16 +1316,16 @@ function newPopulation(pop){
                         <thead>
                           <tr>
                             <th> </th>
-                            <th>0</th>
+                            <th className={styles.blue}>0</th>
                             {number.map((juml)=>(
-                              <th key={juml}>{juml}</th>
+                              <th className={styles.blue} key={juml}>{juml}</th>
                               ))}
                           </tr>
                         </thead>
                         <tbody>
                         {distance.map((dist,index)=>(
                           <tr key={index}>
-                            <td>{index}</td>
+                            <td className={styles.red}>{index}</td>
                               {dist[0] === 0 ? 
                               <td style={{backgroundColor:"yellow",color:"white"}}>{dist[0]}</td>
                               :
@@ -1370,10 +1370,10 @@ function newPopulation(pop){
                             <Form.Group className="mb-3">
                               <Row>
                                 <Col>
-                                  <Form.Control type="number" onChange={(e) => setOriginR(e.target.value)} placeholder="Origin" />
+                                  <Form.Control type="number" onChange={(e) => setOriginR(e.target.value)} placeholder="Origin (red)" />
                                 </Col>
                                 <Col>
-                                  <Form.Control type="number" onChange={(e) => setDestinationR(e.target.value)} placeholder="Destination" />
+                                  <Form.Control type="number" onChange={(e) => setDestinationR(e.target.value)} placeholder="Destination (blue)" />
                                 </Col>
                               </Row>
                             </Form.Group>

@@ -44,3 +44,11 @@ PlacesAutocomplete {
 .img {
     margin-left: 5px;
 }
+
+.blue {
+    background-color: dodgerblue;
+}
+
+.red {
+    background-color: red;
+}
