@@ -1159,7 +1159,7 @@ function newPopulation(pop){
                             <>
                               <div className='mt-5'>
                                 <h5>Distance Calculating   
-                                <img src={load} width="20px" alt="Loading"/>
+                                <img className={styles.img} src={load} width="20px" alt="Loading"/>
                                 </h5>
                               </div>
                             </>
