@@ -7,6 +7,7 @@ import styles from "./styles/Home.module.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Modal, Row, Col, Form, FormGroup, Table} from 'react-bootstrap/';
 import axios from "axios";
+import load from "../images/load.gif"
 
 import PlacesAutocomplete, {
   geocodeByAddress,
@@ -1157,7 +1158,9 @@ function newPopulation(pop){
                           
                             <>
                               <div className='mt-5'>
-                                <h5>Distance Calculating...</h5>
+                                <h5>Distance Calculating... 
+                                <img src={load} alt="Loading"/>
+                                </h5>
                               </div>
                             </>
                           
