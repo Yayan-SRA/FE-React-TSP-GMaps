@@ -1316,19 +1316,16 @@ function newPopulation(pop){
                         <thead>
                           <tr>
                             <th> </th>
-                            {/* <th style={{backgroundColor:"dodgerblue",color:"white"}}>0</th>
+                            <th style={{backgroundColor:"dodgerblue",color:"white"}}>0</th>
                             {number.map((juml)=>(
                               <th style={{backgroundColor:"dodgerblue",color:"white"}} key={juml}>{juml}</th>
-                              ))} */}
-                              {placeData.map((data,index)=>(
-                                <th key={index} style={{backgroundColor:"dodgerblue",color:"white"}}>{data.name} ({index})</th>
                               ))}
                           </tr>
                         </thead>
                         <tbody>
                         {distance.map((dist,index)=>(
                           <tr key={index}>
-                            <td style={{backgroundColor:"red",color:"white"}}>{placeData[index]} ({index})</td>
+                            <td style={{backgroundColor:"red",color:"white"}}>{index}</td>
                               {dist[0] === 0 ? 
                               <td style={{backgroundColor:"yellow",color:"white"}}>{dist[0]}</td>
                               :
