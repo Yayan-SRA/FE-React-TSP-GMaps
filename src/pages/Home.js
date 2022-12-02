@@ -17,6 +17,7 @@ import PlacesAutocomplete, {
 
 function Home() {
   const [add, setAdd] = useState(0);
+  const [help, setHelp] = useState(0);
   const [requireAdd, setRequireAdd] = useState(0);
   const [btn, setBtn] = useState(0);
   const [update, setUpdate] = useState(0);
@@ -81,7 +82,7 @@ function Home() {
 
 const fetchdata = async () => {
     try {
-        let response = await axios.get("https://be-react-gmaps.herokuapp.com/api/v1/algen/list")
+        let response = await axios.get("http://localhost:8000/api/v1/algen/list")
         console.log("isi response", response.data.data)
         let valueRes = response.data.data[0]
         if(valueRes.startingPoint === true){
@@ -179,7 +180,7 @@ const fetchdata = async () => {
   async function save(e){
     e.preventDefault();
     try {
-      let response = await axios.post(`https://be-react-gmaps.herokuapp.com/api/v1/algen/create`, {
+      let response = await axios.post(`http://localhost:8000/api/v1/algen/create`, {
         name: name,
         address: address,
         lat: coordinates.lat,
@@ -197,7 +198,7 @@ const fetchdata = async () => {
   
   async function del(id){
     try {
-      let response = await axios.delete(`https://be-react-gmaps.herokuapp.com/api/v1/algen/delete/${id}`)
+      let response = await axios.delete(`http://localhost:8000/api/v1/algen/delete/${id}`)
       if(response){
         window.location.reload();
       }
@@ -1019,7 +1020,7 @@ function newPopulation(pop){
                         }
                         {' '}
                         {btn === 0 ? 
-                        <Button variant='info' onClick={() =>Data()}>Data</Button>
+                        <Button variant='info' onClick={() =>Data()} className={styles.tes}>Data</Button>
                         : 
                         <Button variant='danger'  onClick={() =>CloseData()}>Close</Button>
 
@@ -1029,7 +1030,38 @@ function newPopulation(pop){
                       <Button variant='success'  onClick={() =>ruteCalculate()}>Rute Calculate</Button>
                       :
                       <Button variant='danger'  onClick={() =>CloseRuteCalculate()}>Close</Button>
-                    }
+                      }
+                      {" "}
+                      {help === 0 ? 
+                      <Button variant='warning' className={styles.tes} onClick={()=>setHelp(1)}>Help</Button>
+                      :
+                      <Button variant='danger'  onClick={()=>setHelp(0)}>Close</Button>
+                      }
+                      {help === 0 ? null : 
+                      <div className={styles.help}>
+                        <ol>
+                          <li>Masukkan data lokasi melalui menu <b>"Add Destination"</b>.</li>
+                          <li>Untuk melihat data lokasi yang sudah diinputkan melalui menu <b>"Data"</b>.</li>
+                          <li>Pada menu <b>"Data"</b> juga dapat menghapus data alamat yang tidak diinginkan.</li>
+                          <li>Pada menu <b>"Rute Calculate"</b> terdapat tombol <b>"Get Distance"</b> untuk mendapatkan jarak antar alamat.</li>
+                          <li>Proses <b>"Get Distance"</b> cukup lama, namun tergantung banyaknya jumlah alamat yang diinputkan, sehingga lebih disarankan hanya memasukkan sejumlah 10 alamat saja .</li>
+                          <li>Proses <b>"Get Distance"</b> berjalan dengan ditandai bergantinya tombol tersebut dengan keterangan <b>"Distance Calculating"</b> .</li>
+                          <li>Ketika proses <b>"Distance Calculating"</b> selesai maka akan tergantikan dengan tombol <b>"Clear Distance", "Show Distance", dan "Start"</b>.</li>
+                          <li>Tombol <b>"Clear Distance"</b> berfungsi untuk menghapus data jarak yang telah ada.</li>
+                          <li>Tombol <b> "Show Distance"</b> berfungsi untuk menampilkan data jarak yang telah diperoleh.</li>
+                          <li>Tombol <b> "Start"</b> berfungsi untuk memulai proses pendapatan rute tercepat.</li>
+                          <li>Ketika menampilkan data jarak dengan tombol <b> "Show Distance"</b> namun terdapat angka <b>"0"</b> selain pada diagonal, dapat diperbaiki melalui tombol <b>"Repair Distance"</b>.</li>
+                          <li>Untuk melakukan perbaikan, cukup menginputkan posisi origin dan destination pada bagian yang masih <b>"0"</b> pada form yang ada. Kemudian klik tombol <b>"Repair"</b>.</li>
+                          <li>Ketika semua data jarak sudah lengkap, dapat memulai pencarian rute tercepat dengan tombol <b>"Start"</b>, kemudian isikan semua form yang ada dan akan muncul tombol <b>"Generate"</b>.</li>
+                          <li>Setelah tombol <b>"Generate"</b> di klik maka akan tergantikan dengan tombol <b>"Start"</b> dan tombol <b>"Clear"</b> serta menandakan bahwa populasi awal telah terbentuk.</li>
+                          <li>Klik tombol <b>"Rute Calculate"</b> untuk memicu map menampilkan rute.</li>
+                          <li>Klik tombol <b>"Start"</b> untuk memulai proses algoritma genetika dalam pencarian rute tercepat dan hasilnya tersaji di bagian bawah.</li>
+                          <li>Tombol <b>"Get One Route"</b> yang ada di bagian paling bawah berfungsi untuk mendapatkan rute antar dua titik tujuan.</li>
+                          <li>Hanya perlu menginputkan angka yang ada di row <b>"Posisi Ke"</b> yang ada pada tabel <b>Rute Terbaik"</b>, selanjutnya hanya perlu klik <b>"Find Route"</b> untuk memperoleh rutenya.</li>
+                          <li>Klik tombol <b>"Clear"</b> untuk menghapus data pencarian saat ini dan untuk melakukan penggantian nilai variabel.</li>
+                        </ol>
+                      </div>
+                      }
                     </section>
                     <section>
                     {add === 1 ? 
@@ -1215,10 +1247,10 @@ function newPopulation(pop){
                                               <Form.Control type="number" onChange={(e) => SetMaxGenerasi(e.target.value)} placeholder="Jumlah Generasi" />
                                             </Col>
                                             <Col>
-                                              <Form.Control type="number" onChange={(e) => SetPc(e.target.value)} placeholder="Probabilitas Crossover" />
+                                              <Form.Control type="number" onChange={(e) => SetPc(e.target.value)} placeholder="Probabilitas Crossover (0-1)" />
                                             </Col>
                                             <Col>
-                                              <Form.Control type="number" onChange={(e) => SetPm(e.target.value)} placeholder="Probabilitas Mutasi" />
+                                              <Form.Control type="number" onChange={(e) => SetPm(e.target.value)} placeholder="Probabilitas Mutasi (0-1)" />
                                             </Col>
                                           </Row>
                                         </Form.Group>
@@ -1315,21 +1347,29 @@ function newPopulation(pop){
                       <Table className='tabelGenerasi mt-2' striped bordered responsive>
                         <thead>
                           <tr>
-                            <th> </th>
-                            <th style={{backgroundColor:"dodgerblue",color:"white"}}>0</th>
+                            <th colSpan={2}> </th>
+                            {/* <th style={{backgroundColor:"dodgerblue",color:"white"}}>0</th>
                             {number.map((juml)=>(
                               <th style={{backgroundColor:"dodgerblue",color:"white"}} key={juml}>{juml}</th>
+                              ))} */}
+                              {placeData.map((data,index)=>(
+                                <>
+                                <th key={index} style={{backgroundColor:"dodgerblue",color:"white",borderRight:"none",textAlign:"right"}}>({index})</th>
+                                <th style={{backgroundColor:"dodgerblue",color:"white",borderLeft:"none",textAlign:"left"}}>{data.name} </th>
+                                </>
                               ))}
                           </tr>
                         </thead>
                         <tbody>
                         {distance.map((dist,index)=>(
                           <tr key={index}>
-                            <td style={{backgroundColor:"red",color:"white"}}>{index}</td>
+                            {/* <td style={{backgroundColor:"red",color:"white"}}>{index}</td> */}
+                            <td style={{backgroundColor:"red",color:"white",borderRight:"none",textAlign:"right"}}><b>({index})</b></td>
+                            <td style={{backgroundColor:"red",color:"white",borderLeft:"none",textAlign:"left"}}><b>{placeData[index].name}</b></td>
                               {dist[0] === 0 ? 
-                              <td style={{backgroundColor:"yellow",color:"white"}}>{dist[0]}</td>
+                              <td colSpan={2} style={{backgroundColor:"yellow",color:"white"}}>{dist[0]}</td>
                               :
-                                <td>{dist[0]}</td>
+                                <td colSpan={2}>{dist[0]}</td>
                                 }
                               {/* <td>
                                 {dist[0] === 0 ? 
@@ -1342,9 +1382,9 @@ function newPopulation(pop){
                             {number.map((jum)=>(
                               <>
                               {dist[jum] === 0 ? 
-                                <td key={jum} style={{backgroundColor:"yellow",color:"white"}}>{dist[jum]}</td>
+                                <td colSpan={2}  key={jum} style={{backgroundColor:"yellow",color:"white"}}>{dist[jum]}</td>
                                 :
-                                <td>{dist[jum]}</td>
+                                <td colSpan={2} >{dist[jum]}</td>
                                 }
                               {/* <td key={jum}>
                                 {dist[jum] === 0 ? 
@@ -1365,15 +1405,15 @@ function newPopulation(pop){
                       <Button variant='danger' onClick={() =>setRepairBtn(0)}>Close Repair Distance Data</Button>
                       }
                       {repairBtn === 0 ? null : 
-                        <div className='mt-4'>
+                        <div className='mt-4' style={{width:"60%", margin:"auto"}}>
                           <Form onSubmit={(e)=>Repair(e)}>
                             <Form.Group className="mb-3">
                               <Row>
                                 <Col>
-                                  <Form.Control type="number" onChange={(e) => setOriginR(e.target.value)} placeholder="Origin (red)" />
+                                  <Form.Control type="number" onChange={(e) => setOriginR(e.target.value)} placeholder="Origin (red) - Input the number" />
                                 </Col>
                                 <Col>
-                                  <Form.Control type="number" onChange={(e) => setDestinationR(e.target.value)} placeholder="Destination (blue)" />
+                                  <Form.Control type="number" onChange={(e) => setDestinationR(e.target.value)} placeholder="Destination (blue) - Input the number" />
                                 </Col>
                               </Row>
                             </Form.Group>
