@@ -45,6 +45,20 @@ PlacesAutocomplete {
     margin-left: 5px;
 }
 
+.tes {
+    color: white;
+}
+
+.help {
+    border-radius: 10px;
+    padding: 10px;
+    text-align: justify;
+    margin: 20px auto;
+    width: 60%;
+    background-color: rgb(235, 235, 235);
+
+}
+
 /* .blue {
     background-color: dodgerblue;
 }
